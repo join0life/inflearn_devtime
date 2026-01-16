@@ -1,0 +1,40 @@
+:root {
+  /* =====================
+     Primary
+  ====================== */
+  /* Main Primary (진한 쪽) */
+  --color-primary-500: #4c79ff;
+  --color-primary-500-10: rgba(76, 121, 255, 0.1);
+  --color-primary-500-30: rgba(76, 121, 255, 0.3);
+  --color-primary-gradient: linear-gradient(
+    119.36deg,
+    #4c79ff 0%,
+    #023e99 100%
+  );
+
+  /* Sub Primary (연한 쪽) */
+  --color-primary-300: #78b0ff;
+  --color-primary-300-10: rgba(120, 176, 255, 0.9);
+  --color-primary-300-30: rgba(120, 176, 255, 0.7);
+
+  /* =====================
+     Secondary
+  ====================== */
+  --color-secondary-indigo-500: #023e99;
+  --color-secondary-informative-500: #2563eb;
+  --color-secondary-negative-500: #dc2626;
+  --color-secondary-notice-500: #fbbf24;
+  --color-seconday-positive-500: #22c55e;
+  --color-seconday-fuchsia-500: #fd28ec;
+
+  --color-secondary-indigo-300: #a3c3ff;
+  --color-secondary-informative-300: rgba(83, 178, 255, 1);
+  --color-secondary-negative-300: rgba(255, 99, 99, 1);
+  --color-secondary-notice-300: rgba(255, 219, 127, 1);
+  --color-seconday-positive-300: rgba(98, 236, 149, 1);
+  --color-seconday-fuchsia-300: rgba(255, 135, 245, 1);
+
+  /* =====================
+     Gray
+  ====================== */
+}

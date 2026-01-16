@@ -1,0 +1,213 @@
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2")
+    format("woff2");
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2")
+    format("woff2");
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2")
+    format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2")
+    format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2")
+    format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
+:root {
+  /* =====================
+     Font Family
+  ====================== */
+  --font-base: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    sans-serif;
+
+  /* =====================
+     Heading
+  ====================== */
+  --typo-heading-b-size: 24px;
+  --typo-heading-b-line: 1.5;
+  --typo-heading-b-weight: 700;
+
+  --typo-heading-s-size: 24px;
+  --typo-heading-s-line: 1.5;
+  --typo-heading-s-weight: 600;
+
+  --typo-heading-m-size: 24px;
+  --typo-heading-m-line: 1.5;
+  --typo-heading-m-weight: 500;
+
+  --typo-heading-r-size: 24px;
+  --typo-heading-r-line: 1.5;
+  --typo-heading-r-weight: 400;
+
+  /* =====================
+     Title
+  ====================== */
+  --typo-title-b-size: 20px;
+  --typo-title-b-line: 1.25;
+  --typo-title-b-weight: 700;
+
+  --typo-title-s-size: 20px;
+  --typo-title-s-line: 1.25;
+  --typo-title-s-weight: 600;
+
+  --typo-title-m-size: 20px;
+  --typo-title-m-line: 1.25;
+  --typo-title-m-weight: 500;
+
+  --typo-title-r-size: 20px;
+  --typo-title-r-line: 1.25;
+  --typo-title-r-weight: 400;
+
+  /* =====================
+     Sub title
+  ====================== */
+
+  --typo-subtitle-b-size: 18px;
+  --typo-subtitle-b-line: 1.125;
+  --typo-subtitle-b-weight: 700;
+
+  --typo-subtitle-s-size: 18px;
+  --typo-subtitle-s-line: 1.125;
+  --typo-subtitle-s-weight: 600;
+
+  --typo-subtitle-m-size: 18px;
+  --typo-subtitle-m-line: 1.125;
+  --typo-subtitle-m-weight: 500;
+
+  --typo-subtitle-r-size: 18px;
+  --typo-subtitle-r-line: 1.125;
+  --typo-subtitle-r-weight: 400;
+
+  /* =====================
+     Body
+  ====================== */
+  --typo-body-b-size: 16px;
+  --typo-body-b-line: 1;
+  --typo-body-b-weight: 700;
+
+  --typo-body-s-size: 16px;
+  --typo-body-s-line: 1;
+  --typo-body-s-weight: 600;
+
+  --typo-body-m-size: 16px;
+  --typo-body-m-line: 1;
+  --typo-body-m-weight: 500;
+
+  --typo-body-r-size: 16px;
+  --typo-body-r-line: 1;
+  --typo-body-r-weight: 400;
+
+  /* =====================
+     Body Small
+  ====================== */
+  --typo-body-small-b-size: 14px;
+  --typo-body-small-b-line: 0.875;
+  --typo-body-small-b-weight: 700;
+
+  --typo-body-small-s-size: 14px;
+  --typo-body-small-s-line: 0.875;
+  --typo-body-small-s-weight: 600;
+
+  --typo-body-small-m-size: 14px;
+  --typo-body-small-m-line: 0.875;
+  --typo-body-small-m-weight: 500;
+
+  --typo-body-small-r-size: 14px;
+  --typo-body-small-r-line: 0.875;
+  --typo-body-small-r-weight: 400;
+
+  /* =====================
+     Caption
+  ====================== */
+  --typo-caption-b-size: 12px;
+  --typo-caption-b-line: 0.75;
+  --typo-caption-b-weight: 700;
+
+  --typo-caption-s-size: 12px;
+  --typo-caption-s-line: 0.75;
+  --typo-caption-s-weight: 600;
+
+  --typo-caption-m-size: 12px;
+  --typo-caption-m-line: 0.75;
+  --typo-caption-m-weight: 500;
+
+  --typo-caption-r-size: 12px;
+  --typo-caption-r-line: 0.75;
+  --typo-caption-r-weight: 400;
+
+  /* =====================
+     Label
+  ====================== */
+  --typo-label-b-size: 10px;
+  --typo-label-b-line: 0.625;
+  --typo-label-b-weight: 700;
+
+  --typo-label-s-size: 10px;
+  --typo-label-s-line: 0.625;
+  --typo-label-s-weight: 600;
+
+  --typo-label-m-size: 10px;
+  --typo-label-m-line: 0.625;
+  --typo-label-m-weight: 500;
+
+  --typo-label-r-size: 10px;
+  --typo-label-r-line: 0.625;
+  --typo-label-r-weight: 400;
+}
