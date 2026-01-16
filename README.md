@@ -6,7 +6,7 @@
 - Typescript
 
 ## 폴더 구조
-
+```
 src/
 ├── app/
 │ ├── auth/
@@ -43,3 +43,4 @@ src/
 ├── styles/
 ├── lib/
 └── types/
+```
