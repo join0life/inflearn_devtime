@@ -72,12 +72,6 @@
 
 @theme {
   /* =====================
-     Font Family
-  ====================== */
-  --font-base:
-    "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-
-  /* =====================
      Heading
   ====================== */
   --font-heading-b: 700 24px/30px "Pretendard";
@@ -132,5 +126,4 @@
   --font-label-s: 600 10px/12px "Pretendard";
   --font-label-m: 500 10px/12px "Pretendard";
   --font-label-r: 400 10px/12px "Pretendard";
-  
 }

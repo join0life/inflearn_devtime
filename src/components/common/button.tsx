@@ -3,12 +3,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseStyle =
-  "inline-flex px-3 py-4 justify-center items-center gap-8 rounded-sm transition-colors";
+  "cursor-pointer px-4 py-3 flex-row-center gap-8 rounded-[5px] transition-colors";
 
 const buttonVariants = {
-  primary: "bg-primary-500 text-white",
-  secondary: "bg-primary-500-10 text-primary-500",
-  tertiary: "bg-gray-l50 text-primary-500",
+  primary: "btn-primary",
+  secondary: "btn-secondary",
+  tertiary: "btn-tertiary",
 };
 
 export default function Button({

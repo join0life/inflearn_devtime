@@ -2,6 +2,104 @@
 @import "./variables.css";
 @import "./typography.css";
 
-body {
-  font-family: var(--font-base);
+@layer base {
+  body {
+    font-family: var(--font-base);
+  }
+}
+
+@layer components {
+  /* =====================
+     Button - Primary
+  ====================== */
+  .btn-primary {
+    @apply bg-primary-500 text-white;
+  }
+
+  .btn-primary:hover {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500);
+  }
+
+  .btn-primary:active {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500);
+  }
+
+  .btn-primary:disabled {
+    @apply cursor-not-allowed bg-gray-400 text-gray-300;
+  }
+
+  .btn-primary:focus {
+    @apply border-seconday-fuchsia-500 rounded-[5px] border;
+  }
+
+  /* =====================
+     Button - Secondary
+  ====================== */
+  .btn-secondary {
+    @apply bg-primary-500-10 text-primary-500;
+  }
+
+  .btn-secondary:hover {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500-10);
+  }
+
+  .btn-secondary:active {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500-10);
+  }
+
+  .btn-secondary:disabled {
+    @apply cursor-not-allowed bg-gray-200 text-gray-400;
+  }
+
+  .btn-secondary:focus {
+    @apply border-seconday-fuchsia-500 rounded-[5px] border;
+  }
+
+  /* =====================
+     Button - Tertiary
+  ====================== */
+  .btn-tertiary {
+    @apply text-primary-500 bg-gray-50;
+  }
+
+  .btn-tertiary:hover {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-gray-50);
+  }
+
+  .btn-tertiary:active {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-gray-50);
+  }
+
+  .btn-tertiary:disabled {
+    @apply cursor-not-allowed bg-gray-200 text-gray-400;
+  }
+
+  .btn-tertiary:focus {
+    @apply border-seconday-fuchsia-500 rounded-[5px] border;
+  }
+}
+
+@layer utilities {
+  /* =====================
+     flex
+  ====================== */
+  .flex-row-center {
+    @apply flex flex-row items-center justify-center;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
 }

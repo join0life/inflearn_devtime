@@ -1,4 +1,4 @@
-:root {
+@theme {
   /* =====================
      Primary
   ====================== */
@@ -6,11 +6,6 @@
   --color-primary-500: #4c79ff;
   --color-primary-500-10: rgba(76, 121, 255, 0.1);
   --color-primary-500-30: rgba(76, 121, 255, 0.3);
-  --color-primary-gradient: linear-gradient(
-    119.36deg,
-    #4c79ff 0%,
-    #023e99 100%
-  );
 
   /* Sub Primary (연한 쪽) */
   --color-primary-300: #78b0ff;
@@ -37,7 +32,6 @@
   /* =====================
      Gray
   ====================== */
-  --color-gray-white: #ffffff;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f0f2f5;
   --color-gray-200: #e5e7eb;
