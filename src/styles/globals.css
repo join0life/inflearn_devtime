@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 @import "tailwindcss";
 @import "./variables.css";
 @import "./typography.css";
@@ -33,7 +34,7 @@
   }
 
   .btn-primary:focus {
-    @apply border-seconday-fuchsia-500 rounded-[5px] border;
+    @apply border-secondary-fuchsia-500 rounded-[5px] border;
   }
 
   /* =====================
@@ -60,7 +61,7 @@
   }
 
   .btn-secondary:focus {
-    @apply border-seconday-fuchsia-500 rounded-[5px] border;
+    @apply border-secondary-fuchsia-500 rounded-[5px] border;
   }
 
   /* =====================
@@ -87,7 +88,7 @@
   }
 
   .btn-tertiary:focus {
-    @apply border-seconday-fuchsia-500 rounded-[5px] border;
+    @apply border-secondary-fuchsia-500 rounded-[5px] border;
   }
 }
 
@@ -101,5 +102,117 @@
 
   .flex-col-center {
     @apply flex flex-col items-center justify-center;
+  }
+
+  /* =====================
+     Font - Heading
+  ====================== */
+  .font-heading-b {
+    font: var(--font-heading-b);
+  }
+  .font-heading-s {
+    font: var(--font-heading-s);
+  }
+  .font-heading-m {
+    font: var(--font-heading-m);
+  }
+  .font-heading-r {
+    font: var(--font-heading-r);
+  }
+
+  /* =====================
+     Font - Title
+  ====================== */
+  .font-title-b {
+    font: var(--font-title-b);
+  }
+  .font-title-s {
+    font: var(--font-title-s);
+  }
+  .font-title-m {
+    font: var(--font-title-m);
+  }
+  .font-title-r {
+    font: var(--font-title-r);
+  }
+
+  /* =====================
+     Font - Subtitle
+  ====================== */
+  .font-subtitle-b {
+    font: var(--font-subtitle-b);
+  }
+  .font-subtitle-s {
+    font: var(--font-subtitle-s);
+  }
+  .font-subtitle-m {
+    font: var(--font-subtitle-m);
+  }
+  .font-subtitle-r {
+    font: var(--font-subtitle-r);
+  }
+
+  /* =====================
+     Font - Body
+  ====================== */
+  .font-body-b {
+    font: var(--font-body-b);
+  }
+  .font-body-s {
+    font: var(--font-body-s);
+  }
+  .font-body-m {
+    font: var(--font-body-m);
+  }
+  .font-body-r {
+    font: var(--font-body-r);
+  }
+
+  /* =====================
+     Font - Body Small
+  ====================== */
+  .font-body-small-b {
+    font: var(--font-body-small-b);
+  }
+  .font-body-small-s {
+    font: var(--font-body-small-s);
+  }
+  .font-body-small-m {
+    font: var(--font-body-small-m);
+  }
+  .font-body-small-r {
+    font: var(--font-body-small-r);
+  }
+
+  /* =====================
+     Font - Caption
+  ====================== */
+  .font-caption-b {
+    font: var(--font-caption-b);
+  }
+  .font-caption-s {
+    font: var(--font-caption-s);
+  }
+  .font-caption-m {
+    font: var(--font-caption-m);
+  }
+  .font-caption-r {
+    font: var(--font-caption-r);
+  }
+
+  /* =====================
+     Font - Label
+  ====================== */
+  .font-label-b {
+    font: var(--font-label-b);
+  }
+  .font-label-s {
+    font: var(--font-label-s);
+  }
+  .font-label-m {
+    font: var(--font-label-m);
+  }
+  .font-label-r {
+    font: var(--font-label-r);
   }
 }

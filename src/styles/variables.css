@@ -19,15 +19,15 @@
   --color-secondary-informative-500: #2563eb;
   --color-secondary-negative-500: #dc2626;
   --color-secondary-notice-500: #fbbf24;
-  --color-seconday-positive-500: #22c55e;
-  --color-seconday-fuchsia-500: #fd28ec;
+  --color-secondary-positive-500: #22c55e;
+  --color-secondary-fuchsia-500: #fd28ec;
 
   --color-secondary-indigo-300: #a3c3ff;
   --color-secondary-informative-300: rgba(83, 178, 255, 1);
   --color-secondary-negative-300: rgba(255, 99, 99, 1);
   --color-secondary-notice-300: rgba(255, 219, 127, 1);
-  --color-seconday-positive-300: rgba(98, 236, 149, 1);
-  --color-seconday-fuchsia-300: rgba(255, 135, 245, 1);
+  --color-secondary-positive-300: rgba(98, 236, 149, 1);
+  --color-secondary-fuchsia-300: rgba(255, 135, 245, 1);
 
   /* =====================
      Gray

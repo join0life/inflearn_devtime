@@ -1,3 +1,4 @@
+import NavigationBar from "@/components/common/navigation-bar";
 import "@/styles/globals.css";
 
 export default function RootLayout({
@@ -7,7 +8,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <header>
+          <NavigationBar />
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
