@@ -7,6 +7,10 @@
   body {
     font-family: var(--font-base);
   }
+
+  .font-digital-numbers {
+    font-family: var(--font-timer);
+  }
 }
 
 @layer components {
@@ -102,6 +106,13 @@
 
   .flex-col-center {
     @apply flex flex-col items-center justify-center;
+  }
+
+  /* =====================
+     Timer
+  ====================== */
+  .font-timer {
+    font: var(--font-timer-r);
   }
 
   /* =====================

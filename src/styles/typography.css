@@ -1,8 +1,23 @@
+@font-face {
+  font-family: "Digital Numbers";
+  src: url("/fonts/digital-numbers-font/dist/DigitalNumbers-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* =====================
      Base
   ====================== */
   --font-base: "Pretendard";
+  --font-timer: "Digital Numbers";
+
+  /* =====================
+     Timer
+  ====================== */
+  --font-timer-r: 400 154px/200px "Digital Numbers";
 
   /* =====================
      Heading
