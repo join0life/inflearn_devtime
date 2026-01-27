@@ -1,14 +1,11 @@
 import { ComponentProps } from "react";
-import { useInputFieldContext } from "./input-field-context";
 
 type InputProps = ComponentProps<"input">;
 
 const Input = ({ ...props }: InputProps) => {
-  const inputFieldContext = useInputFieldContext();
-
   return (
     <input
-      id={inputFieldContext.id}
+      className="font-body-m px-4 py-3 text-gray-800 placeholder:text-gray-300 focus:outline-none"
       {...props}
     />
   );
