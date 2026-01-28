@@ -1,9 +1,9 @@
-import Chip from "@/components/common/chip";
+import Pagination from "@/components/common/pagination/pagination";
 
 export default function Home() {
   return (
     <div>
-      <Chip deletable={true}>item</Chip>
+      <Pagination currentPage={96} totalPages={100} />
     </div>
   );
 }
