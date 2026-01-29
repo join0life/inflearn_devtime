@@ -3,7 +3,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseStyle =
-  "cursor-pointer px-4 py-3 flex-row-center gap-8 rounded-[5px] transition-colors";
+  "cursor-pointer px-4 py-3 inline-flex items-center gap-8 rounded-[5px] transition-colors";
 
 const buttonVariants = {
   primary: "btn-primary",
