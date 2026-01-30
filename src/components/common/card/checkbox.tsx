@@ -42,7 +42,7 @@ const Checkbox = ({
           "flex-row-center rounded-[5px] border transition-all",
           sizeMap[size],
           {
-            "border-white bg-white/50": disabled && checked,
+            "border-white bg-white/50": disabled || checked,
             "bg-primary-500-10 border-primary-500": checked && !disabled,
             "border-primary-500 bg-white": !checked && !disabled,
           },
@@ -50,7 +50,7 @@ const Checkbox = ({
       >
         <Check
           className={clsx({
-            "text-white": disabled && checked,
+            "text-white": disabled || checked,
             "text-primary-500": checked && !disabled,
             "opacity-0": !checked && !disabled,
           })}
