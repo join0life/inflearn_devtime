@@ -1,6 +1,5 @@
 "use client";
 
-import mock from "@/lib/mock.json";
 import TodoItem from "./todo-item";
 import Image from "next/image";
 import editGray from "@/assets/edit-gray.svg";
@@ -14,7 +13,7 @@ interface Task {
 }
 
 const TodoList = () => {
-  const [tasks, setTasks] = useState<Task[]>(mock.tasks); // 실제 화면에 쓰이는 할 일
+  const [tasks, setTasks] = useState<Task[]>([]); // 실제 화면에 쓰이는 할 일
   const [isEditMode, setIsEditMode] = useState(false); // 전역 편집 모드인지
   const [editingId, setEditingId] = useState<string | null>(null); // 현재 편집 중인 아이템 Id
   const [hasChanges, setHasChanges] = useState(false); // 수정된 내용이 있는지
