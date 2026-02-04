@@ -2,7 +2,7 @@ import Image, { StaticImageData } from "next/image";
 
 interface DeleteButtonProps {
   icon: StaticImageData;
-  onClick: () => void;
+  onClick?: () => void;
   label: string;
   size?: number;
 }
