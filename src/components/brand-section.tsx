@@ -1,4 +1,4 @@
-import Logo from "./src/assets/logo-vertical-white.svg";
+import Logo from "@/assets/logo-vertical-white.svg";
 
 export default function BrandSection() {
   return (
