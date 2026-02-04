@@ -6,7 +6,7 @@ import NavSign from "./nav-sign";
 
 export default function NavBar() {
   return (
-    <div className="flex items-center justify-between">
+    <header className="flex items-center justify-between">
       <div className="text-secondary-indigo-500 font-body-s flex cursor-pointer items-center gap-9 py-2.5">
         <Image
           src={logo}
@@ -18,6 +18,6 @@ export default function NavBar() {
         <NavLink href={"/ranking"}>랭킹</NavLink>
       </div>
       <NavSign />
-    </div>
+    </header>
   );
 }

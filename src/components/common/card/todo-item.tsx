@@ -1,9 +1,11 @@
 import Image from "next/image";
 import symbol from "@/assets/symbol.svg";
 import Checkbox from "./checkbox";
-import EditButton from "./edit-button";
-import DeleteButton from "./delete-button";
 import SaveButton from "./save-button";
+import IconButton from "./icon-button";
+import editIcon from "@/assets/edit-white.svg";
+import deleteIcon from "@/assets/trashcan.svg";
+import { useEffect, useRef } from "react";
 
 interface TodoItemProps {
   id: string;
@@ -25,10 +27,6 @@ interface TodoItemProps {
     onSave: () => void;
     onEdit: () => void;
     onDelete: () => void;
-  };
-
-  refs: {
-    inputRef: React.RefObject<HTMLInputElement | null>;
   };
 }
 
@@ -58,10 +56,17 @@ const TodoItem = ({
   mode: { isEditing, isEditMode },
   checkbox: { onToggleCompleted, isLoading },
   actions: { onEdit, onChangeContent, onDelete, onSave },
-  refs: { inputRef },
 }: TodoItemProps) => {
   const isViewMode = !isEditMode;
   const isItemEditing = isEditing;
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (isItemEditing) {
+      inputRef.current?.focus();
+    }
+  }, [isItemEditing]);
 
   /** @TODO error 시 UI 처리 */
   //   return (
@@ -106,8 +111,18 @@ const TodoItem = ({
         <>
           <div className="flex-1 text-white">{content}</div>
           <div className="flex-row-center gap-4.5">
-            <EditButton label="수정" onClick={onEdit} />
-            <DeleteButton label="삭제" onClick={onDelete} />
+            <IconButton
+              label="수정"
+              onClick={onEdit}
+              size={17}
+              icon={editIcon}
+            />
+            <IconButton
+              label="삭제"
+              onClick={onDelete}
+              size={24}
+              icon={deleteIcon}
+            />
           </div>
         </>
       )}

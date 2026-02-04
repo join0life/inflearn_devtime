@@ -1,7 +1,7 @@
 interface PageButtonProps {
-  page: number | string;
+  page: number | "...";
   active?: boolean;
-  onClick?: () => void;
+  onClick: () => void;
   disabled?: boolean;
 }
 

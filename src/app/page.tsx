@@ -1,9 +1,18 @@
-import RankingList from "@/components/common/card/ranking-list";
+"use client";
+
+import Pagination from "@/components/common/pagination/pagination";
+import { useState } from "react";
 
 export default function Home() {
+  const [currentPage, setCurrentPage] = useState(1);
+
   return (
     <div>
-      <RankingList />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={100}
+        onChangePage={setCurrentPage}
+      />
     </div>
   );
 }

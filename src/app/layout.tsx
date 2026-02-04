@@ -7,11 +7,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body>
-        <header>
-          <NavBar />
-        </header>
+        <NavBar />
         <main>{children}</main>
       </body>
     </html>

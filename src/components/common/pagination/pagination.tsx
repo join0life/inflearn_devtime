@@ -1,17 +1,25 @@
-import ChevronLeft from "./chevron-left";
-import ChevronRight from "./chevron-right";
-import ChevronsLeft from "./chevrons-left";
-import ChevronsRight from "./chevrons-right";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsLeftIcon,
+  ChevronsRightIcon,
+} from "lucide-react";
 import PageButton from "./page-button";
+import PaginationIconButton from "./pagination-icon-button";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  onChangePage: (page: number) => void;
 }
 
-const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onChangePage,
+}: PaginationProps) => {
   const getPages = () => {
-    const pages: (number | string)[] = [];
+    const pages: (number | "...")[] = [];
 
     // 1. totalPages <= 10
     if (totalPages <= 10) {
@@ -57,23 +65,50 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
     return pages;
   };
 
+  const goToFirstPage = () => onChangePage(1);
+  const goToPrevPage = () => onChangePage(Math.max(1, currentPage - 1));
+
+  const goToNextPage = () =>
+    onChangePage(Math.min(totalPages, currentPage + 1));
+
+  const goToLastPage = () => onChangePage(totalPages);
+
   return (
     <div className="inline-flex items-center gap-3">
-      <ChevronsLeft disabled={currentPage === 1} />
-      <ChevronLeft disabled={currentPage === 1} />
+      <PaginationIconButton
+        disabled={currentPage === 1}
+        icon={ChevronsLeftIcon}
+        onClick={goToFirstPage}
+      />
+      <PaginationIconButton
+        disabled={currentPage === 1}
+        icon={ChevronLeftIcon}
+        onClick={goToPrevPage}
+      />
 
-      {/** @TODO PageButton - onClick */}
       {getPages().map((page, idx) => (
         <PageButton
           key={idx}
           page={page}
           active={page === currentPage}
           disabled={page === "..."}
+          onClick={() => {
+            if (page === "...") return;
+            onChangePage(page);
+          }}
         />
       ))}
 
-      <ChevronRight disabled={currentPage === totalPages} />
-      <ChevronsRight disabled={currentPage === totalPages} />
+      <PaginationIconButton
+        disabled={currentPage === totalPages}
+        icon={ChevronRightIcon}
+        onClick={goToNextPage}
+      />
+      <PaginationIconButton
+        disabled={currentPage === totalPages}
+        icon={ChevronsRightIcon}
+        onClick={goToLastPage}
+      />
     </div>
   );
 };
