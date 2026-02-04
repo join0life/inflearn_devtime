@@ -10,12 +10,6 @@
 ```
 src/
 ├── app/
-│ ├── auth/
-│ │ ├── login/
-│ │ │ └── page.tsx
-│ │ └── signup/
-│ │ └── page.tsx
-│ │
 │ ├── challenge/
 │ │ ├── timer/
 │ │ │ └── page.tsx
@@ -37,7 +31,6 @@ src/
 │
 ├── components/
 │ ├── common/
-│ ├── layout/
 │ └── challenge/
 │
 ├── hooks/
