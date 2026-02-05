@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { useInputFieldContext } from "./input-field-context";
 
 interface LabelProps extends ComponentProps<"label"> {

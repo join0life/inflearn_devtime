@@ -1,3 +1,5 @@
+import FormSection from "@/components/sign-up/form-section";
+
 export default function Page() {
-  return <div>회원가입 페이지</div>
+  return <FormSection />;
 }
