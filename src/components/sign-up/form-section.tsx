@@ -29,8 +29,10 @@ export default function FormSection() {
     setFormField((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  const handleEmailValidation = (email: string) => {};
+
   return (
-    <section className="mx-auto flex h-screen w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
+    <section className="mx-auto flex w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
       <h1 className="text-primary-500 font-heading-b w-full text-center">
         회원가입
       </h1>
