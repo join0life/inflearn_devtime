@@ -9,6 +9,7 @@ import { TERMS_OF_SERVICE } from "@/lib/constants";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import rehypeRaw from "rehype-raw";
+import { useCheckEmailDuplicate } from "@/hooks/mutations/use-check-email-duplicate";
 
 export default function FormSection() {
   const [formField, setFormField] = useState({
@@ -19,6 +20,43 @@ export default function FormSection() {
     agreeToTerms: false,
   });
 
+  const [emailHint, setEmailHint] = useState<{
+    message: string;
+    type: "success" | "error" | null;
+  }>({ message: "", type: null });
+
+  const {
+    mutate: checkEmail,
+    isPending: isCheckEmailPending,
+    error: isCheckEmailError,
+  } = useCheckEmailDuplicate();
+
+  const handleCheckEmailDuplicateClick = () => {
+    const email = formField.email;
+    if (email.trim() === "") return;
+
+    checkEmail(email, {
+      onSuccess: (data) => {
+        if(!data.success) {
+          setEmailHint({
+            message: data.message,
+            type: "error",
+          });
+        }
+        setEmailHint({
+          message: data.message,
+          type: "success",
+        });
+      },
+      // onError: (error) => {
+      //   setEmailHint({
+      //     message: error.message,
+      //     type: "error",
+      //   });
+      // },
+    });
+  };
+
   const handleAgreeToTermsChecked = () => {
     // const prevFormField = formField;
 
@@ -28,8 +66,6 @@ export default function FormSection() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormField((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
-
-  const handleEmailValidation = (email: string) => {};
 
   return (
     <section className="mx-auto flex w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
@@ -59,9 +95,13 @@ export default function FormSection() {
                   중복 확인
                 </InputField.Button>
               </div>
-              {/* {errorMessage.id && (
-            <InputField.HintText className="font-caption-m">{errorMessage.id}</InputField.HintText>
-          )} */}
+              {emailHint.type && (
+                <InputField.HintText
+                  className={`${emailHint.type === "success" ? "text-secondary-positive-500" : "text-secondary-negative-500"} font-caption-m`}
+                >
+                  {emailHint.message}
+                </InputField.HintText>
+              )}
             </div>
           </InputField>
 
@@ -85,9 +125,13 @@ export default function FormSection() {
                   중복 확인
                 </InputField.Button>
               </div>
-              {/* {errorMessage.id && (
-            <InputField.HintText className="font-caption-m">{errorMessage.id}</InputField.HintText>
-          )} */}
+              {/* {nicknameHint.type && (
+                <InputField.HintText
+                  className={`${nicknameHint.type === "success" ? "text-secondary-positive-500" : "text-secondary-negative-500"} font-caption-m`}
+                >
+                  {nicknameHint.message}
+                </InputField.HintText>
+              )} */}
             </div>
           </InputField>
 

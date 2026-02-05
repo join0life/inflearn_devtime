@@ -13,6 +13,5 @@ export type SignupPayload = {
 
 export type SignupRes = {
   success: boolean;
-  available: boolean;
   message: string;
 };

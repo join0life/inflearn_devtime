@@ -12,17 +12,23 @@ import { CheckDuplicateRes, SignupPayload, SignupRes } from "@/types/auth";
  * GET /auth/check-email
  * @returns { success: boolean, available: boolean, message: string }
  */
-export async function checkEmailDuplicate(): Promise<CheckDuplicateRes> {
+export async function checkEmailDuplicate(
+  email: string,
+): Promise<CheckDuplicateRes> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/check-email`,
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/check-email?email=${email}`,
   );
 
+  const data = await res.json();
+
   if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.error.message);
+    return {
+      success: false,
+      available: false,
+      message: data.error.message,
+    };
   }
 
-  const data = await res.json();
   return data;
 }
 
@@ -30,17 +36,22 @@ export async function checkEmailDuplicate(): Promise<CheckDuplicateRes> {
  * GET /auth/check-nickname
  * @returns { success: boolean, available: boolean, message: string }
  */
-export async function checkNicknameDuplicate(): Promise<CheckDuplicateRes> {
+export async function checkNicknameDuplicate(
+  nickname: string,
+): Promise<CheckDuplicateRes> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/check-nickname`,
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/check-nickname?nickname=${nickname}`,
   );
 
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.error.message);
-  }
-
   const data = await res.json();
+
+  if (!res.ok) {
+    return {
+      success: false,
+      available: false,
+      message: data.error.message,
+    };
+  }
   return data;
 }
 
@@ -58,11 +69,13 @@ export async function signup(payload: SignupPayload): Promise<SignupRes> {
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.error.message);
-  }
-
   const data = await res.json();
+
+  if (!res.ok) {
+    return {
+      success: false,
+      message: data.error.message,
+    };
+  }
   return data;
 }

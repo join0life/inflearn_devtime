@@ -1,8 +1,8 @@
-interface HintTextProps {
+interface HintTextProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const HintText = ({ children }: HintTextProps) => {
+const HintText = ({ children, ...props }: HintTextProps) => {
   return <p>{children}</p>;
 };
 

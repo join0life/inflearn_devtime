@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import { QueryClient } from "@tanstack/react-query";
+import Providers from "./providers";
 
 export default function RootLayout({
   children,
@@ -8,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <main>{children}</main>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
