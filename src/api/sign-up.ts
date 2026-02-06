@@ -1,5 +1,3 @@
-"use server";
-
 import { CheckDuplicateRes, SignupPayload, SignupRes } from "@/types/auth";
 
 /**
@@ -16,7 +14,7 @@ export async function checkEmailDuplicate(
   email: string,
 ): Promise<CheckDuplicateRes> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/check-email?email=${email}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/signup/check-email?email=${email}`,
   );
 
   const data = await res.json();
@@ -40,7 +38,7 @@ export async function checkNicknameDuplicate(
   nickname: string,
 ): Promise<CheckDuplicateRes> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/check-nickname?nickname=${nickname}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/signup/check-nickname?nickname=${nickname}`,
   );
 
   const data = await res.json();
@@ -61,7 +59,7 @@ export async function checkNicknameDuplicate(
  * @returns { success: boolean, message: string }
  */
 export async function signup(payload: SignupPayload): Promise<SignupRes> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

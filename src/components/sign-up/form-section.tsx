@@ -37,23 +37,17 @@ export default function FormSection() {
 
     checkEmail(email, {
       onSuccess: (data) => {
-        if(!data.success) {
-          setEmailHint({
-            message: data.message,
-            type: "error",
-          });
-        }
         setEmailHint({
           message: data.message,
-          type: "success",
+          type: data.available ? "success" : "error",
         });
       },
-      // onError: (error) => {
-      //   setEmailHint({
-      //     message: error.message,
-      //     type: "error",
-      //   });
-      // },
+      onError: (error) => {
+        setEmailHint({
+          message: error.message,
+          type: "error",
+        });
+      },
     });
   };
 
@@ -88,6 +82,8 @@ export default function FormSection() {
                   onChange={handleInputChange}
                 />
                 <InputField.Button
+                  type="button"
+                  onClick={handleCheckEmailDuplicateClick}
                   variant="secondary"
                   className="shrink-0 px-4 py-3"
                   disabled={formField.email === ""}

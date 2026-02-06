@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import { QueryClient } from "@tanstack/react-query";
 import Providers from "./providers";
 
 export default function RootLayout({
