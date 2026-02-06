@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import rehypeRaw from "rehype-raw";
 import { useCheckEmailDuplicate } from "@/hooks/mutations/use-check-email-duplicate";
+import { useCheckNicknameDuplicate } from "@/hooks/mutations/use-check-nickname-duplicate";
 
 export default function FormSection() {
   const [formField, setFormField] = useState({
@@ -20,16 +21,26 @@ export default function FormSection() {
     agreeToTerms: false,
   });
 
-  const [hasEmailChecked, setHasEmailChecked] = useState(false);
-  const [checkedEmail, setCheckedEmail] = useState("");
-
   const [emailHint, setEmailHint] = useState<{
     message: string;
     type: "success" | "error" | null;
   }>({ message: "", type: null });
 
+  const [nicknameHint, setNicknameHint] = useState<{
+    message: string;
+    type: "success" | "error" | null;
+  }>({ message: "", type: null });
+
+  const [hasEmailChecked, setHasEmailChecked] = useState(false);
+  const [checkedEmail, setCheckedEmail] = useState("");
+  const [hasNicknameChecked, setHasNicknameChecked] = useState(false);
+  const [checkedNickname, setCheckedNickname] = useState("");
+
   const { mutate: checkEmail, isPending: isCheckEmailPending } =
     useCheckEmailDuplicate();
+
+  const { mutate: checkNickname, isPending: isCheckNicknamePending } =
+    useCheckNicknameDuplicate();
 
   const handleCheckEmailDuplicateClick = () => {
     const email = formField.email;
@@ -57,6 +68,32 @@ export default function FormSection() {
     });
   };
 
+  const handleCheckNicknameDuplicateClick = () => {
+    const nickname = formField.nickname;
+    if (nickname.trim() === "") return;
+
+    checkNickname(nickname, {
+      onSuccess: (data) => {
+        setNicknameHint({
+          message: data.message,
+          type: data.available ? "success" : "error",
+        });
+
+        setHasNicknameChecked(true);
+        setCheckedNickname(nickname);
+      },
+      onError: (error) => {
+        setNicknameHint({
+          message: error.message,
+          type: "error",
+        });
+
+        setHasNicknameChecked(true);
+        setCheckedNickname(nickname);
+      },
+    });
+  };
+
   const handleAgreeToTermsChecked = () => {
     // const prevFormField = formField;
 
@@ -64,17 +101,27 @@ export default function FormSection() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormField((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    const value = e.target.value;
+    setFormField((prev) => ({ ...prev, [e.target.id]: value }));
 
-    if (e.target.value !== checkedEmail) {
+    if (value !== checkedEmail) {
       setHasEmailChecked(false);
       setEmailHint({ message: "", type: null });
+    }
+
+    if (value !== checkedNickname) {
+      setHasNicknameChecked(false);
+      setNicknameHint({ message: "", type: null });
     }
   };
 
   const isEmailBtnDisabled =
     hasEmailChecked || isCheckEmailPending || formField.email.trim() === "";
 
+  const isNicknameBtnDisabled =
+    hasNicknameChecked ||
+    isCheckNicknamePending ||
+    formField.nickname.trim() === "";
   return (
     <section className="mx-auto flex w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
       <h1 className="text-primary-500 font-heading-b w-full text-center">
@@ -122,26 +169,28 @@ export default function FormSection() {
               </InputField.Label>
               <div className="flex w-full gap-3">
                 <InputField.Input
-                  className="font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300"
+                  className="autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50"
                   placeholder="닉네임을 입력해 주세요."
                   value={formField.nickname}
                   onChange={handleInputChange}
                 />
                 <InputField.Button
+                  type="button"
+                  onClick={handleCheckNicknameDuplicateClick}
                   variant="secondary"
                   className="shrink-0 px-4 py-3"
-                  disabled={formField.nickname === ""}
+                  disabled={isNicknameBtnDisabled}
                 >
                   중복 확인
                 </InputField.Button>
               </div>
-              {/* {nicknameHint.type && (
+              {nicknameHint.type && (
                 <InputField.HintText
                   className={`${nicknameHint.type === "success" ? "text-secondary-positive-500" : "text-secondary-negative-500"} font-caption-m`}
                 >
                   {nicknameHint.message}
                 </InputField.HintText>
-              )} */}
+              )}
             </div>
           </InputField>
 

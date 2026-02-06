@@ -50,6 +50,7 @@ export async function checkNicknameDuplicate(
       message: data.error.message,
     };
   }
+
   return data;
 }
 
@@ -75,5 +76,6 @@ export async function signup(payload: SignupPayload): Promise<SignupRes> {
       message: data.error.message,
     };
   }
+
   return data;
 }
