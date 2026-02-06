@@ -20,16 +20,16 @@ export default function FormSection() {
     agreeToTerms: false,
   });
 
+  const [hasEmailChecked, setHasEmailChecked] = useState(false);
+  const [checkedEmail, setCheckedEmail] = useState("");
+
   const [emailHint, setEmailHint] = useState<{
     message: string;
     type: "success" | "error" | null;
   }>({ message: "", type: null });
 
-  const {
-    mutate: checkEmail,
-    isPending: isCheckEmailPending,
-    error: isCheckEmailError,
-  } = useCheckEmailDuplicate();
+  const { mutate: checkEmail, isPending: isCheckEmailPending } =
+    useCheckEmailDuplicate();
 
   const handleCheckEmailDuplicateClick = () => {
     const email = formField.email;
@@ -41,12 +41,18 @@ export default function FormSection() {
           message: data.message,
           type: data.available ? "success" : "error",
         });
+
+        setHasEmailChecked(true);
+        setCheckedEmail(email);
       },
       onError: (error) => {
         setEmailHint({
           message: error.message,
           type: "error",
         });
+
+        setHasEmailChecked(true);
+        setCheckedEmail(email);
       },
     });
   };
@@ -59,7 +65,15 @@ export default function FormSection() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormField((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+
+    if (e.target.value !== checkedEmail) {
+      setHasEmailChecked(false);
+      setEmailHint({ message: "", type: null });
+    }
   };
+
+  const isEmailBtnDisabled =
+    hasEmailChecked || isCheckEmailPending || formField.email.trim() === "";
 
   return (
     <section className="mx-auto flex w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
@@ -76,7 +90,7 @@ export default function FormSection() {
               <div className="flex w-full gap-3">
                 <InputField.Input
                   type="email"
-                  className="font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300"
+                  className="autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50"
                   placeholder="이메일 주소 형식으로 입력해 주세요."
                   value={formField.email}
                   onChange={handleInputChange}
@@ -86,7 +100,7 @@ export default function FormSection() {
                   onClick={handleCheckEmailDuplicateClick}
                   variant="secondary"
                   className="shrink-0 px-4 py-3"
-                  disabled={formField.email === ""}
+                  disabled={isEmailBtnDisabled}
                 >
                   중복 확인
                 </InputField.Button>

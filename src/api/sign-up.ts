@@ -2,7 +2,7 @@ import { CheckDuplicateRes, SignupPayload, SignupRes } from "@/types/auth";
 
 /**
 |--------------------------------------------------
-| Sign up API Actions
+| Sign up APIs
 |--------------------------------------------------
 **/
 

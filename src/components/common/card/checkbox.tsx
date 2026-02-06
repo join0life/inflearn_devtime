@@ -3,12 +3,14 @@ import clsx from "clsx";
 
 import { Check } from "lucide-react";
 
-interface CheckboxProps extends Omit<React.ComponentProps<"input">, "size" | "onChange"> {
+interface CheckboxProps extends Omit<
+  React.ComponentProps<"input">,
+  "size" | "onChange"
+> {
   checked: boolean;
   onChange: (checked: boolean) => void;
   disabled?: boolean;
   size?: "sm" | "md";
-  
 }
 
 const sizeMap = {
@@ -22,7 +24,6 @@ const Checkbox = ({
   disabled,
   size = "md",
   ...props
-  
 }: CheckboxProps) => {
   const handleCheckboxChange = () => {
     if (disabled) return;
@@ -32,6 +33,7 @@ const Checkbox = ({
   return (
     <label className={`${disabled ? "cursor-not-allowed" : "cursor-pointer"} `}>
       <input
+        {...props}
         type="checkbox"
         className="sr-only"
         checked={checked}
