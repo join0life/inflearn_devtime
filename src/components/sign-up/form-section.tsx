@@ -96,25 +96,25 @@ export default function FormSection() {
     });
   };
 
-  const handleAgreeToTermsChecked = () => {
-    // const prevFormField = formField;
-
-    setFormField((prev) => ({ ...prev, agreeToTerms: !prev.agreeToTerms }));
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setFormField((prev) => ({ ...prev, [e.target.id]: value }));
 
-    if (value !== checkedEmail) {
+    if (value !== checkedEmail && e.target.id === "email") {
       setHasEmailChecked(false);
       setEmailHint({ message: "", type: null });
     }
 
-    if (value !== checkedNickname) {
+    if (value !== checkedNickname && e.target.id === "nickname") {
       setHasNicknameChecked(false);
       setNicknameHint({ message: "", type: null });
     }
+  };
+
+  const handleAgreeToTermsChecked = () => {
+    // const prevFormField = formField;
+
+    setFormField((prev) => ({ ...prev, agreeToTerms: !prev.agreeToTerms }));
   };
 
   const isEmailBtnDisabled =
@@ -125,7 +125,11 @@ export default function FormSection() {
     isCheckNicknamePending ||
     formField.nickname.trim() === "";
 
-  const isPasswordValid = !password_regex.test(formField.password);
+  const isPasswordValidError =
+    !password_regex.test(formField.password) && formField.password !== "";
+  const isConfirmPasswordValidError =
+    formField.password !== formField.confirmPassword &&
+    formField.confirmPassword !== "";
   return (
     <section className="mx-auto flex w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
       <h1 className="text-primary-500 font-heading-b w-full text-center">
@@ -206,13 +210,13 @@ export default function FormSection() {
               <div className="flex w-full gap-3">
                 <InputField.Input
                   type="password"
-                  className={`${isPasswordValid ? "border-secondary-negative-500 border" : ""} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
+                  className={`${isPasswordValidError ? "border-secondary-negative-500 border" : ""} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
                   placeholder="비밀번호를 입력해 주세요."
                   value={formField.password}
                   onChange={handleInputChange}
                 />
               </div>
-              {isPasswordValid && (
+              {isPasswordValidError && (
                 <InputField.HintText className="font-caption-m text-secondary-negative-500">
                   비밀번호는 8자 이상, 영문과 숫자 조합이어야 합니다.
                 </InputField.HintText>
@@ -225,18 +229,20 @@ export default function FormSection() {
               <InputField.Label className="font-label-m text-gray-600">
                 비밀번호 확인
               </InputField.Label>
-              <div className="flex w-full gap-3">
+              <div className="flex w-full flex-col gap-3">
                 <InputField.Input
                   type="password"
-                  className="font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300"
+                  className={`${isConfirmPasswordValidError ? "border-secondary-negative-500 border" : ""} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
                   placeholder="비밀번호를 다시 입력해 주세요."
                   value={formField.confirmPassword}
                   onChange={handleInputChange}
                 />
+                {isConfirmPasswordValidError && (
+                  <InputField.HintText className="font-caption-m text-secondary-negative-500">
+                    비밀번호가 일치하지 않습니다.
+                  </InputField.HintText>
+                )}
               </div>
-              {/* {errorMessage.id && (
-            <InputField.HintText className="font-caption-m">{errorMessage.id}</InputField.HintText>
-          )} */}
             </div>
           </InputField>
           <div className="flex w-full flex-col gap-2">
@@ -271,18 +277,22 @@ export default function FormSection() {
               </div>
             </div>
           </div>
+          <div className="flex-col-center gap-6">
+            <Button
+              type="submit"
+              className="flex-row-center w-full"
+              variant="primary"
+            >
+              회원가입
+            </Button>
+            <div className="text-primary-500 flex gap-3">
+              <p className="font-body-r">회원이신가요?</p>
+              <Link href={"/sign-in"} className="font-body-b">
+                로그인 바로가기
+              </Link>
+            </div>
+          </div>
         </form>
-      </div>
-      <div className="flex-col-center gap-6">
-        <Button className="flex-row-center w-full" variant="primary">
-          회원가입
-        </Button>
-        <div className="text-primary-500 flex gap-3">
-          <p className="font-body-r">회원이신가요?</p>
-          <Link href={"/sign-in"} className="font-body-b">
-            로그인 바로가기
-          </Link>
-        </div>
       </div>
     </section>
   );
