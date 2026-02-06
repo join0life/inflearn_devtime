@@ -14,6 +14,7 @@ import { useCheckNicknameDuplicate } from "@/hooks/mutations/use-check-nickname-
 import { useSignup } from "@/hooks/mutations/use-signup";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
@@ -182,11 +183,15 @@ export default function FormSection() {
 
     signup(formField, {
       onSuccess: () => {
-        alert("회원가입에 성공했습니다.");
+        toast.message("회원가입에 성공했습니다.", {
+          position: "top-center",
+        });
         router.push("/sign-in");
       },
-      onError: (error) => {
-        alert(error.message);
+      onError: () => {
+        toast.error("회원가입에 실패했습니다. 다시 시도해 주세요.", {
+          position: "top-center",
+        });
       },
     });
   };
