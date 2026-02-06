@@ -11,10 +11,15 @@ import remarkBreaks from "remark-breaks";
 import rehypeRaw from "rehype-raw";
 import { useCheckEmailDuplicate } from "@/hooks/mutations/use-check-email-duplicate";
 import { useCheckNicknameDuplicate } from "@/hooks/mutations/use-check-nickname-duplicate";
+import { useSignup } from "@/hooks/mutations/use-signup";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 const password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 export default function FormSection() {
+  const router = useRouter();
+
   const [formField, setFormField] = useState({
     email: "",
     nickname: "",
@@ -33,16 +38,30 @@ export default function FormSection() {
     type: "success" | "error" | null;
   }>({ message: "", type: null });
 
+  const [passwordHint, setPasswordHint] = useState<{
+    message: string;
+    type: "error" | null;
+  }>({ message: "", type: null });
+
+  const [confirmPasswordHint, setConfirmPasswordHint] = useState<{
+    message: string;
+    type: "error" | null;
+  }>({ message: "", type: null });
+
   const [hasEmailChecked, setHasEmailChecked] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState("");
   const [hasNicknameChecked, setHasNicknameChecked] = useState(false);
   const [checkedNickname, setCheckedNickname] = useState("");
+  const [checkedAgreeToTermsError, setCheckedAgreeToTermsError] =
+    useState(false);
 
   const { mutate: checkEmail, isPending: isCheckEmailPending } =
     useCheckEmailDuplicate();
 
   const { mutate: checkNickname, isPending: isCheckNicknamePending } =
     useCheckNicknameDuplicate();
+
+  const { mutate: signup, isPending: isSignupPending } = useSignup();
 
   const handleCheckEmailDuplicateClick = () => {
     const email = formField.email;
@@ -100,36 +119,92 @@ export default function FormSection() {
     const value = e.target.value;
     setFormField((prev) => ({ ...prev, [e.target.id]: value }));
 
-    if (value !== checkedEmail && e.target.id === "email") {
+    if (e.target.id === "email" && value !== checkedEmail) {
       setHasEmailChecked(false);
       setEmailHint({ message: "", type: null });
     }
 
-    if (value !== checkedNickname && e.target.id === "nickname") {
+    if (e.target.id === "nickname" && value !== checkedNickname) {
       setHasNicknameChecked(false);
       setNicknameHint({ message: "", type: null });
+    }
+
+    if (e.target.id === "password" && formField.password !== "") {
+      setPasswordHint({ message: "", type: null });
+    }
+
+    if (e.target.id === "confirmPassword" && formField.confirmPassword !== "") {
+      setConfirmPasswordHint({ message: "", type: null });
     }
   };
 
   const handleAgreeToTermsChecked = () => {
-    // const prevFormField = formField;
-
     setFormField((prev) => ({ ...prev, agreeToTerms: !prev.agreeToTerms }));
   };
 
-  const isEmailBtnDisabled =
-    hasEmailChecked || isCheckEmailPending || formField.email.trim() === "";
+  const handleSignupSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let isValid = true;
+
+    if (!hasEmailChecked || checkedEmail !== formField.email) {
+      setEmailHint({ message: "중복을 확인해 주세요", type: "error" });
+      isValid = false;
+    }
+
+    if (!hasNicknameChecked || checkedNickname !== formField.nickname) {
+      setNicknameHint({ message: "중복을 확인해 주세요", type: "error" });
+      isValid = false;
+    }
+
+    if (isPasswordEmpty || isPasswordInvalid) {
+      setPasswordHint({
+        message: "비밀번호는 8자 이상, 영문과 숫자 조합이어야 합니다.",
+        type: "error",
+      });
+      isValid = false;
+    }
+
+    if (isConfirmPasswordEmpty || isNotMatch) {
+      setConfirmPasswordHint({
+        message: "비밀번호가 일치하지 않습니다.",
+        type: "error",
+      });
+      isValid = false;
+    }
+
+    if (!formField.agreeToTerms) {
+      setCheckedAgreeToTermsError(true);
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    signup(formField, {
+      onSuccess: () => {
+        alert("회원가입에 성공했습니다.");
+        router.push("/sign-in");
+      },
+      onError: (error) => {
+        alert(error.message);
+      },
+    });
+  };
+
+  const isPasswordEmpty = formField.password.trim() === "";
+  const isPasswordInvalid = !password_regex.test(formField.password);
+
+  const isConfirmPasswordEmpty = formField.confirmPassword.trim() === "";
+  const isNotMatch = formField.password !== formField.confirmPassword;
+
+  const isEmailBtnDisabled = hasEmailChecked || formField.email.trim() === "";
 
   const isNicknameBtnDisabled =
-    hasNicknameChecked ||
-    isCheckNicknamePending ||
-    formField.nickname.trim() === "";
+    hasNicknameChecked || formField.nickname.trim() === "";
 
-  const isPasswordValidError =
-    !password_regex.test(formField.password) && formField.password !== "";
-  const isConfirmPasswordValidError =
-    formField.password !== formField.confirmPassword &&
-    formField.confirmPassword !== "";
+  const isPending =
+    isCheckEmailPending || isCheckNicknamePending || isSignupPending;
+
   return (
     <section className="mx-auto flex w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
       <h1 className="text-primary-500 font-heading-b w-full text-center">
@@ -144,18 +219,20 @@ export default function FormSection() {
               </InputField.Label>
               <div className="flex w-full gap-3">
                 <InputField.Input
+                  name="email"
                   type="email"
-                  className="autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50"
+                  className={`${emailHint.type === "error" && "border-secondary-negative-500 border"} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
                   placeholder="이메일 주소 형식으로 입력해 주세요."
                   value={formField.email}
                   onChange={handleInputChange}
+                  disabled={isPending}
                 />
                 <InputField.Button
                   type="button"
                   onClick={handleCheckEmailDuplicateClick}
                   variant="secondary"
                   className="shrink-0 px-4 py-3"
-                  disabled={isEmailBtnDisabled}
+                  disabled={isEmailBtnDisabled || isPending}
                 >
                   중복 확인
                 </InputField.Button>
@@ -177,17 +254,19 @@ export default function FormSection() {
               </InputField.Label>
               <div className="flex w-full gap-3">
                 <InputField.Input
-                  className="autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50"
+                  name="nickname"
+                  className={`${nicknameHint.type === "error" && "border-secondary-negative-500 border"} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
                   placeholder="닉네임을 입력해 주세요."
                   value={formField.nickname}
                   onChange={handleInputChange}
+                  disabled={isPending}
                 />
                 <InputField.Button
                   type="button"
                   onClick={handleCheckNicknameDuplicateClick}
                   variant="secondary"
                   className="shrink-0 px-4 py-3"
-                  disabled={isNicknameBtnDisabled}
+                  disabled={isNicknameBtnDisabled || isPending}
                 >
                   중복 확인
                 </InputField.Button>
@@ -209,16 +288,20 @@ export default function FormSection() {
               </InputField.Label>
               <div className="flex w-full gap-3">
                 <InputField.Input
+                  name="password"
                   type="password"
-                  className={`${isPasswordValidError ? "border-secondary-negative-500 border" : ""} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
+                  className={`${passwordHint.type || (isPasswordInvalid && !isPasswordEmpty) ? "border-secondary-negative-500 border" : ""} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
                   placeholder="비밀번호를 입력해 주세요."
                   value={formField.password}
                   onChange={handleInputChange}
+                  disabled={isPending}
                 />
               </div>
-              {isPasswordValidError && (
+              {(passwordHint.type ||
+                (isPasswordInvalid && !isPasswordEmpty)) && (
                 <InputField.HintText className="font-caption-m text-secondary-negative-500">
-                  비밀번호는 8자 이상, 영문과 숫자 조합이어야 합니다.
+                  {passwordHint.message ||
+                    "비밀번호는 8자 이상, 영문과 숫자 조합이어야 합니다."}
                 </InputField.HintText>
               )}
             </div>
@@ -231,15 +314,24 @@ export default function FormSection() {
               </InputField.Label>
               <div className="flex w-full flex-col gap-3">
                 <InputField.Input
+                  name="confirmPassword"
                   type="password"
-                  className={`${isConfirmPasswordValidError ? "border-secondary-negative-500 border" : ""} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
+                  className={`${
+                    confirmPasswordHint.type ||
+                    (isNotMatch && !isConfirmPasswordEmpty)
+                      ? "border-secondary-negative-500 border"
+                      : ""
+                  } autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
                   placeholder="비밀번호를 다시 입력해 주세요."
                   value={formField.confirmPassword}
                   onChange={handleInputChange}
+                  disabled={isPending}
                 />
-                {isConfirmPasswordValidError && (
+                {(confirmPasswordHint.type ||
+                  (isNotMatch && !isConfirmPasswordEmpty)) && (
                   <InputField.HintText className="font-caption-m text-secondary-negative-500">
-                    비밀번호가 일치하지 않습니다.
+                    {confirmPasswordHint.message ||
+                      "비밀번호가 일치하지 않습니다."}
                   </InputField.HintText>
                 )}
               </div>
@@ -251,7 +343,10 @@ export default function FormSection() {
               <div className="flex gap-1">
                 <label
                   htmlFor="agree"
-                  className={`${formField.agreeToTerms ? "text-primary-500" : "text-primary-500-30"} font-body-small-m`}
+                  className={clsx("font-body-small-m", {
+                    "text-primary-500": formField.agreeToTerms,
+                    "text-primary-500-30": !formField.agreeToTerms,
+                  })}
                 >
                   동의함
                 </label>
@@ -260,6 +355,11 @@ export default function FormSection() {
                   checked={formField.agreeToTerms}
                   onChange={handleAgreeToTermsChecked}
                   size="sm"
+                  className={
+                    checkedAgreeToTermsError && !formField.agreeToTerms
+                      ? "border-secondary-negative-500"
+                      : ""
+                  }
                 />
               </div>
             </div>
@@ -279,6 +379,8 @@ export default function FormSection() {
           </div>
           <div className="flex-col-center gap-6">
             <Button
+              onClick={handleSignupSubmit}
+              disabled={isPending}
               type="submit"
               className="flex-row-center w-full"
               variant="primary"
