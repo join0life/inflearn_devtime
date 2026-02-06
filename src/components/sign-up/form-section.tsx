@@ -12,6 +12,8 @@ import rehypeRaw from "rehype-raw";
 import { useCheckEmailDuplicate } from "@/hooks/mutations/use-check-email-duplicate";
 import { useCheckNicknameDuplicate } from "@/hooks/mutations/use-check-nickname-duplicate";
 
+const password_regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
 export default function FormSection() {
   const [formField, setFormField] = useState({
     email: "",
@@ -122,6 +124,8 @@ export default function FormSection() {
     hasNicknameChecked ||
     isCheckNicknamePending ||
     formField.nickname.trim() === "";
+
+  const isPasswordValid = !password_regex.test(formField.password);
   return (
     <section className="mx-auto flex w-full max-w-105 flex-col justify-center gap-9 px-3 py-4">
       <h1 className="text-primary-500 font-heading-b w-full text-center">
@@ -202,15 +206,17 @@ export default function FormSection() {
               <div className="flex w-full gap-3">
                 <InputField.Input
                   type="password"
-                  className="font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300"
+                  className={`${isPasswordValid ? "border-secondary-negative-500 border" : ""} autofill-gray font-body-m flex-1 rounded-[5px] bg-gray-50 px-4 py-3 text-gray-600 placeholder:text-gray-300 focus:bg-gray-50 focus:outline-none focus-visible:bg-gray-50 active:bg-gray-50`}
                   placeholder="비밀번호를 입력해 주세요."
                   value={formField.password}
                   onChange={handleInputChange}
                 />
               </div>
-              {/* {errorMessage.id && (
-            <InputField.HintText className="font-caption-m">{errorMessage.id}</InputField.HintText>
-          )} */}
+              {isPasswordValid && (
+                <InputField.HintText className="font-caption-m text-secondary-negative-500">
+                  비밀번호는 8자 이상, 영문과 숫자 조합이어야 합니다.
+                </InputField.HintText>
+              )}
             </div>
           </InputField>
 
