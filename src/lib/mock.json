@@ -1,0 +1,68 @@
+[
+  {
+    "success": true,
+    "data": {
+      "rankings": [
+        {
+          "rank": 1,
+          "userId": "string",
+          "nickname": "호빵",
+          "totalStudyTime": 20,
+          "averageStudyTime": 20,
+          "profile": {
+            "career": "경력 없음",
+            "purpose": "취업 준비",
+            "profileImage": "string",
+            "techStacks": [
+              {
+                "id": 0,
+                "name": "Next.js"
+              },
+              { "id": 1, "name": "React" }
+            ]
+          }
+        }
+      ],
+      "pagination": {
+        "currentPage": 0,
+        "totalPages": 0,
+        "totalItems": 0,
+        "hasNext": true,
+        "hasPrev": true
+      }
+    }
+  },
+  {
+    "success": true,
+    "data": {
+      "rankings": [
+        {
+          "rank": 4,
+          "userId": "string",
+          "nickname": "호빵",
+          "totalStudyTime": 20,
+          "averageStudyTime": 20,
+          "profile": {
+            "career": "경력 없음",
+            "purpose": "취업 준비",
+            "profileImage": "string",
+            "techStacks": [
+              {
+                "id": 0,
+                "name": "Next.js"
+              },
+              { "id": 1, "name": "React" }
+            ]
+          }
+        }
+      ],
+      "pagination": {
+        "currentPage": 0,
+        "totalPages": 0,
+        "totalItems": 0,
+        "hasNext": true,
+        "hasPrev": true
+      }
+    }
+  }
+]

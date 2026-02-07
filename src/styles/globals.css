@@ -1,7 +1,240 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 @import "tailwindcss";
 @import "./variables.css";
 @import "./typography.css";
 
-body {
-  font-family: var(--font-base);
+@layer base {
+  body {
+    font-family: var(--font-base);
+  }
+  .font-digital-numbers {
+    font-family: var(--font-timer);
+  }
+}
+
+@layer components {
+  /* =====================
+     Button - Primary
+  ====================== */
+  .btn-primary {
+    @apply bg-primary-500 text-white;
+  }
+
+  .btn-primary:hover {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500);
+  }
+
+  .btn-primary:active {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500);
+  }
+
+  .btn-primary:disabled {
+    @apply cursor-not-allowed bg-gray-400 text-gray-300;
+  }
+
+  .btn-primary:focus {
+    @apply border-secondary-fuchsia-500 rounded-[5px] border;
+  }
+
+  /* =====================
+     Button - Secondary
+  ====================== */
+  .btn-secondary {
+    @apply bg-primary-500-10 text-primary-500;
+  }
+
+  .btn-secondary:hover {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500-10);
+  }
+
+  .btn-secondary:active {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-primary-500-10);
+  }
+
+  .btn-secondary:disabled {
+    @apply cursor-not-allowed bg-gray-200 text-gray-400;
+  }
+
+  .btn-secondary:focus {
+    @apply border-secondary-fuchsia-500 rounded-[5px] border;
+  }
+
+  /* =====================
+     Button - Tertiary
+  ====================== */
+  .btn-tertiary {
+    @apply text-primary-500 bg-gray-50;
+  }
+
+  .btn-tertiary:hover {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-gray-50);
+  }
+
+  .btn-tertiary:active {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%),
+      var(--color-gray-50);
+  }
+
+  .btn-tertiary:disabled {
+    @apply cursor-not-allowed bg-gray-200 text-gray-400;
+  }
+
+  .btn-tertiary:focus {
+    @apply border-secondary-fuchsia-500 rounded-[5px] border;
+  }
+}
+
+@layer utilities {
+  /* =====================
+     flex
+  ====================== */
+  .flex-row-center {
+    @apply flex flex-row items-center justify-center;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  /* =====================
+     Timer
+  ====================== */
+  .font-timer {
+    font: var(--font-timer-r);
+  }
+
+  /* =====================
+     Font - Heading
+  ====================== */
+  .font-heading-b {
+    font: var(--font-heading-b);
+  }
+  .font-heading-s {
+    font: var(--font-heading-s);
+  }
+  .font-heading-m {
+    font: var(--font-heading-m);
+  }
+  .font-heading-r {
+    font: var(--font-heading-r);
+  }
+
+  /* =====================
+     Font - Title
+  ====================== */
+  .font-title-b {
+    font: var(--font-title-b);
+  }
+  .font-title-s {
+    font: var(--font-title-s);
+  }
+  .font-title-m {
+    font: var(--font-title-m);
+  }
+  .font-title-r {
+    font: var(--font-title-r);
+  }
+
+  /* =====================
+     Font - Subtitle
+  ====================== */
+  .font-subtitle-b {
+    font: var(--font-subtitle-b);
+  }
+  .font-subtitle-s {
+    font: var(--font-subtitle-s);
+  }
+  .font-subtitle-m {
+    font: var(--font-subtitle-m);
+  }
+  .font-subtitle-r {
+    font: var(--font-subtitle-r);
+  }
+
+  /* =====================
+     Font - Body
+  ====================== */
+  .font-body-b {
+    font: var(--font-body-b);
+  }
+  .font-body-s {
+    font: var(--font-body-s);
+  }
+  .font-body-m {
+    font: var(--font-body-m);
+  }
+  .font-body-r {
+    font: var(--font-body-r);
+  }
+
+  /* =====================
+     Font - Body Small
+  ====================== */
+  .font-body-small-b {
+    font: var(--font-body-small-b);
+  }
+  .font-body-small-s {
+    font: var(--font-body-small-s);
+  }
+  .font-body-small-m {
+    font: var(--font-body-small-m);
+  }
+  .font-body-small-r {
+    font: var(--font-body-small-r);
+  }
+
+  /* =====================
+     Font - Caption
+  ====================== */
+  .font-caption-b {
+    font: var(--font-caption-b);
+  }
+  .font-caption-s {
+    font: var(--font-caption-s);
+  }
+  .font-caption-m {
+    font: var(--font-caption-m);
+  }
+  .font-caption-r {
+    font: var(--font-caption-r);
+  }
+
+  /* =====================
+     Font - Label
+  ====================== */
+  .font-label-b {
+    font: var(--font-label-b);
+  }
+  .font-label-s {
+    font: var(--font-label-s);
+  }
+  .font-label-m {
+    font: var(--font-label-m);
+  }
+  .font-label-r {
+    font: var(--font-label-r);
+  }
+
+  /* =====================
+     Scrollbar
+  ====================== */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
