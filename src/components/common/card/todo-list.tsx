@@ -3,7 +3,7 @@
 import TodoItem from "./todo-item";
 import Image from "next/image";
 import editGray from "@/assets/edit-gray.svg";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../button";
 
 interface Task {
@@ -19,38 +19,33 @@ const TodoList = () => {
   const [hasChanges, setHasChanges] = useState(false); // 수정된 내용이 있는지
   const [loadingId, setLoadingId] = useState<string | null>(null); // 체크 진행 중인 아이템 Id
 
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
   /* =====================
     List 컴포넌트(모달 안 전역)
   ====================== */
+  const resetEditState = () => {
+    setIsEditMode(false);
+    setEditingId(null);
+    setHasChanges(false);
+  };
+
   const handleGlobalEditButtonClick = () => {
     setIsEditMode(true);
   };
 
   const handleCancelButtonClick = () => {
     /** @TODO Modal 창 닫기 */
-    setIsEditMode(false);
-    setEditingId(null);
-    setHasChanges(false);
+    resetEditState();
   };
 
   const handleSaveButtonClick = () => {
     /** @TODO API 호출 */
-    setIsEditMode(false);
-    setEditingId(null);
-    setHasChanges(false);
+    resetEditState();
   };
 
   /* =====================
     Item 컴포넌트
   ====================== */
-  useEffect(() => {
-    if (editingId !== null) {
-      inputRef.current?.focus();
-    }
-  }, [editingId]);
-
   const handleChangeContent = (id: string, value: string) => {
     setTasks((prev) =>
       prev.map((task) => (task.id === id ? { ...task, content: value } : task)),
@@ -138,7 +133,6 @@ const TodoList = () => {
               onDelete: () => handleDeleteItemClick(task.id),
               onSave: () => handleSaveItemClick(),
             }}
-            refs={{ inputRef }}
           />
         ))}
       </div>

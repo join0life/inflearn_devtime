@@ -14,12 +14,13 @@ const buttonVariants = {
 export default function Button({
   variant = "primary",
   className,
+  disabled,
   ...props
 }: ButtonProps) {
   const combinedClassName = `${baseStyle} ${buttonVariants[variant]} ${className || ""}`;
 
   return (
-    <button className={combinedClassName} {...props}>
+    <button className={combinedClassName} disabled={disabled} {...props}>
       {props.children}
     </button>
   );

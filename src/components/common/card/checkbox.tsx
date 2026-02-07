@@ -1,9 +1,12 @@
 "use client";
 import clsx from "clsx";
-
+import { twMerge } from "tailwind-merge";
 import { Check } from "lucide-react";
 
-interface CheckboxProps {
+interface CheckboxProps extends Omit<
+  React.ComponentProps<"input">,
+  "size" | "onChange"
+> {
   checked: boolean;
   onChange: (checked: boolean) => void;
   disabled?: boolean;
@@ -20,6 +23,7 @@ const Checkbox = ({
   onChange,
   disabled,
   size = "md",
+  className,
 }: CheckboxProps) => {
   const handleCheckboxChange = () => {
     if (disabled) return;
@@ -39,18 +43,20 @@ const Checkbox = ({
 
       <div
         className={clsx(
-          "flex-row-center rounded-[5px] border transition-all",
-          sizeMap[size],
-          {
-            "border-white bg-white/50": disabled || checked,
-            "bg-primary-500-10 border-primary-500": checked && !disabled,
-            "border-primary-500 bg-white": !checked && !disabled,
-          },
+          twMerge(
+            "flex-row-center rounded-[5px] border transition-all",
+            sizeMap[size],
+            checked && !disabled
+              ? "bg-primary-500-10 border-primary-500"
+              : "border-primary-500 bg-white",
+            disabled && "border-white bg-white/50",
+            className,
+          ),
         )}
       >
         <Check
           className={clsx({
-            "text-white": disabled || checked,
+            "text-white": disabled,
             "text-primary-500": checked && !disabled,
             "opacity-0": !checked && !disabled,
           })}

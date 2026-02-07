@@ -3,13 +3,15 @@ import defaultAvatar from "@/assets/default-avatar.svg";
 import Tag from "./tag";
 import Rank from "./rank";
 
+type Career = "경력 없음" | "0 - 3년" | "4 - 7년" | "8 - 10년" | "11년 이상";
+
 interface RankingItemProps {
   rank: number;
   nickname: string;
   totalStudyTime: number;
   averageStudyTime: number;
   profile: {
-    career: string;
+    career: Career;
     purpose: string;
     profileImage: string;
     techStacks: { id: number; name: string }[];
@@ -55,9 +57,7 @@ const RankingItem = ({
           </div>
           <div className="flex gap-2">
             <p className="font-body-r text-gray-500">경력</p>
-            <span className="font-body-s text-gray-700">
-              {career !== "경력 없음" ? `${career}년` : career}
-            </span>
+            <span className="font-body-s text-gray-700">{career}</span>
           </div>
         </div>
         <div className="flex gap-2">

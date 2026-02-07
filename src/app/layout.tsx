@@ -1,5 +1,6 @@
-import NavBar from "@/components/common/nav/nav-bar";
 import "@/styles/globals.css";
+import Providers from "./providers";
+import { Toaster } from "@/components/ui/sonner"
 
 export default function RootLayout({
   children,
@@ -7,12 +8,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body>
-        <header>
-          <NavBar />
-        </header>
-        <main>{children}</main>
+        <Providers>{children}</Providers>
+        <Toaster/>
       </body>
     </html>
   );
