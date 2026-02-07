@@ -37,4 +37,14 @@
   /* =====================
      Gray
   ====================== */
+  --color-gray-white: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f0f2f5;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #ccd0d6;
+  --color-gray-400: #969da8;
+  --color-gray-500: #717887;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #394252;
+  --color-gray-800: #1f2937;
 }
